@@ -1,0 +1,202 @@
+[
+  {
+    "id": "user1",
+    "name": "John Smith",
+    "email": "john.smith@email.com",
+    "homeAddress": "123 Oak Street, Downtown",
+    "workAddress": "456 Business Plaza, Tech District",
+    "workStartTime": "09:00",
+    "workEndTime": "17:00",
+    "hasCar": true,
+    "carModel": "Toyota Camry 2020",
+    "carCapacity": 4,
+    "preferences": {
+      "maxDistance": 3,
+      "maxGroupSize": 4,
+      "preferredDays": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+      "smokingAllowed": false,
+      "musicPreference": "pop",
+      "conversationLevel": "moderate"
+    }
+  },
+  {
+    "id": "user2",
+    "name": "Sarah Johnson",
+    "email": "sarah.johnson@email.com",
+    "homeAddress": "789 Pine Avenue, Midtown",
+    "workAddress": "456 Business Plaza, Tech District",
+    "workStartTime": "09:00",
+    "workEndTime": "17:00",
+    "hasCar": false,
+    "carModel": null,
+    "carCapacity": 0,
+    "preferences": {
+      "maxDistance": 5,
+      "maxGroupSize": 3,
+      "preferredDays": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+      "smokingAllowed": false,
+      "musicPreference": "quiet",
+      "conversationLevel": "quiet"
+    }
+  },
+  {
+    "id": "user3",
+    "name": "Mike Chen",
+    "email": "mike.chen@email.com",
+    "homeAddress": "321 Elm Street, Uptown",
+    "workAddress": "456 Business Plaza, Tech District",
+    "workStartTime": "08:30",
+    "workEndTime": "16:30",
+    "hasCar": true,
+    "carModel": "Honda Civic 2019",
+    "carCapacity": 4,
+    "preferences": {
+      "maxDistance": 4,
+      "maxGroupSize": 5,
+      "preferredDays": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+      "smokingAllowed": false,
+      "musicPreference": "rock",
+      "conversationLevel": "chatty"
+    }
+  },
+  {
+    "id": "user4",
+    "name": "Emily Davis",
+    "email": "emily.davis@email.com",
+    "homeAddress": "654 Maple Drive, Suburbs",
+    "workAddress": "456 Business Plaza, Tech District",
+    "workStartTime": "09:00",
+    "workEndTime": "17:00",
+    "hasCar": false,
+    "carModel": null,
+    "carCapacity": 0,
+    "preferences": {
+      "maxDistance": 8,
+      "maxGroupSize": 4,
+      "preferredDays": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+      "smokingAllowed": false,
+      "musicPreference": "classical",
+      "conversationLevel": "moderate"
+    }
+  },
+  {
+    "id": "user5",
+    "name": "David Wilson",
+    "email": "david.wilson@email.com",
+    "homeAddress": "987 Cedar Lane, Eastside",
+    "workAddress": "789 Corporate Center, Financial District",
+    "workStartTime": "08:00",
+    "workEndTime": "16:00",
+    "hasCar": true,
+    "carModel": "Ford Focus 2021",
+    "carCapacity": 4,
+    "preferences": {
+      "maxDistance": 6,
+      "maxGroupSize": 3,
+      "preferredDays": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+      "smokingAllowed": false,
+      "musicPreference": "jazz",
+      "conversationLevel": "moderate"
+    }
+  },
+  {
+    "id": "user6",
+    "name": "Lisa Brown",
+    "email": "lisa.brown@email.com",
+    "homeAddress": "147 Birch Street, Westside",
+    "workAddress": "789 Corporate Center, Financial District",
+    "workStartTime": "08:30",
+    "workEndTime": "16:30",
+    "hasCar": false,
+    "carModel": null,
+    "carCapacity": 0,
+    "preferences": {
+      "maxDistance": 4,
+      "maxGroupSize": 4,
+      "preferredDays": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+      "smokingAllowed": false,
+      "musicPreference": "pop",
+      "conversationLevel": "chatty"
+    }
+  },
+  {
+    "id": "user7",
+    "name": "Alex Rodriguez",
+    "email": "alex.rodriguez@email.com",
+    "homeAddress": "258 Spruce Avenue, Northside",
+    "workAddress": "321 Innovation Hub, Tech District",
+    "workStartTime": "09:30",
+    "workEndTime": "17:30",
+    "hasCar": true,
+    "carModel": "Tesla Model 3 2022",
+    "carCapacity": 4,
+    "preferences": {
+      "maxDistance": 7,
+      "maxGroupSize": 4,
+      "preferredDays": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+      "smokingAllowed": false,
+      "musicPreference": "any",
+      "conversationLevel": "moderate"
+    }
+  },
+  {
+    "id": "user8",
+    "name": "Jessica Taylor",
+    "email": "jessica.taylor@email.com",
+    "homeAddress": "369 Willow Way, Southside",
+    "workAddress": "321 Innovation Hub, Tech District",
+    "workStartTime": "09:00",
+    "workEndTime": "17:00",
+    "hasCar": false,
+    "carModel": null,
+    "carCapacity": 0,
+    "preferences": {
+      "maxDistance": 5,
+      "maxGroupSize": 3,
+      "preferredDays": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+      "smokingAllowed": false,
+      "musicPreference": "quiet",
+      "conversationLevel": "quiet"
+    }
+  },
+  {
+    "id": "user9",
+    "name": "Robert Kim",
+    "email": "robert.kim@email.com",
+    "homeAddress": "741 Poplar Street, Central",
+    "workAddress": "654 Government Plaza, Civic Center",
+    "workStartTime": "08:00",
+    "workEndTime": "16:00",
+    "hasCar": true,
+    "carModel": "Nissan Altima 2020",
+    "carCapacity": 5,
+    "preferences": {
+      "maxDistance": 4,
+      "maxGroupSize": 5,
+      "preferredDays": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+      "smokingAllowed": false,
+      "musicPreference": "rock",
+      "conversationLevel": "moderate"
+    }
+  },
+  {
+    "id": "user10",
+    "name": "Maria Garcia",
+    "email": "maria.garcia@email.com",
+    "homeAddress": "852 Ash Boulevard, Riverside",
+    "workAddress": "654 Government Plaza, Civic Center",
+    "workStartTime": "08:30",
+    "workEndTime": "16:30",
+    "hasCar": false,
+    "carModel": null,
+    "carCapacity": 0,
+    "preferences": {
+      "maxDistance": 6,
+      "maxGroupSize": 4,
+      "preferredDays": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+      "smokingAllowed": false,
+      "musicPreference": "classical",
+      "conversationLevel": "moderate"
+    }
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "name": "carpool-mvp",
+  "version": "1.0.0",
+  "description": "9-to-5 commuter carpool app MVP",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "start": "cd server && npm start",
+    "install-all": "npm install && cd frontend && npm install && cd ../server && npm install"
+  },
+  "keywords": ["carpool", "commuter", "react", "express", "firebase"],
+  "author": "",
+  "license": "MIT"
+}
