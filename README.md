@@ -1,6 +1,6 @@
-# Carpool MVP - 9-to-5 Commuter App
+# Carpool App - 9-to-5 Commuter App
 
-A full-stack carpool matching application built with React, Express, and Firebase for hackathon MVP.
+A full-stack carpool matching application built with Expo, React Native, Express, and Firebase for hackathon MVP.
 
 ## 🚗 Features
 
@@ -9,15 +9,16 @@ A full-stack carpool matching application built with React, Express, and Firebas
 - **Driver Rotation**: Automatic driver rotation schedule for fair carpooling
 - **Group Management**: Create and manage carpool groups
 - **Real-time Updates**: Live group dashboard with schedule and member management
+- **Cross-platform**: Works on iOS, Android, and Web
 
 ## 🏗️ Tech Stack
 
-### Frontend
-- **React 18** with Vite for fast development
-- **Tailwind CSS** for styling
-- **React Router** for navigation
+### Mobile App (Expo)
+- **Expo** for cross-platform development
+- **React Native** for mobile UI
+- **Expo Router** for navigation
+- **TypeScript** for type safety
 - **Firebase Auth** for authentication
-- **Lucide React** for icons
 
 ### Backend
 - **Express.js** REST API
@@ -28,20 +29,19 @@ A full-stack carpool matching application built with React, Express, and Firebas
 ## 📁 Project Structure
 
 ```
-carpool-mvp/
-├── frontend/                 # React frontend
-│   ├── src/
-│   │   ├── components/       # Reusable components
-│   │   ├── pages/           # Page components
-│   │   ├── utils/           # Firebase config & utilities
-│   │   └── assets/          # Static assets
-│   ├── package.json
-│   └── vite.config.js
-├── server/                   # Express backend
+carpool-ap/
+├── app/                      # Expo app directory
+│   ├── (tabs)/              # Tab navigation
+│   ├── _layout.tsx          # Root layout
+│   └── modal.tsx            # Modal screens
+├── components/              # Reusable components
+├── constants/               # App constants
+├── hooks/                   # Custom hooks
+├── frontend/                # Web frontend (React)
+├── server/                  # Express backend
 │   ├── routes/              # API routes
 │   ├── data/                # Sample data
-│   ├── utils/               # Helper functions
-│   └── package.json
+│   └── utils/               # Helper functions
 └── README.md
 ```
 
@@ -49,50 +49,38 @@ carpool-mvp/
 
 ### Prerequisites
 - Node.js (v16 or higher)
-- npm or yarn
+- Expo CLI: `npm install -g @expo/cli`
 - Firebase project (for authentication and database)
 
 ### Installation
 
-1. **Clone and install dependencies:**
+1. **Install dependencies:**
    ```bash
-   git clone <repository-url>
-   cd carpool-mvp
-   npm run install-all
+   npm install
    ```
 
 2. **Set up Firebase:**
    - Create a Firebase project at [Firebase Console](https://console.firebase.google.com)
    - Enable Authentication and Firestore
-   - Copy your Firebase config to `frontend/src/utils/firebase.js`
-   - Set up Firebase Admin SDK for the backend (optional for MVP)
-
-3. **Configure environment variables:**
-   ```bash
-   cd server
-   cp .env.example .env
-   # Edit .env with your Firebase credentials
-   ```
+   - Copy your Firebase config to the appropriate files
 
 ### Running the Application
 
+**Start the Expo app:**
+```bash
+npx expo start
+```
+
+In the output, you'll find options to open the app in a:
+- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
+- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
+- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
+- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+
 **Start the backend server:**
 ```bash
-npm start
-# or for development with auto-restart:
-cd server && npm run dev
+cd server && npm start
 ```
-
-**Start the frontend development server:**
-```bash
-npm run dev
-# or:
-cd frontend && npm run dev
-```
-
-The application will be available at:
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:5000
 
 ## 📋 API Endpoints
 
@@ -124,20 +112,14 @@ The app matches users based on:
 - Considers car capacity and passenger count
 - Handles group size changes dynamically
 
-### Sample Data
-The app includes 10 sample users with realistic profiles:
-- Different work locations and schedules
-- Mix of drivers and passengers
-- Various preferences and car types
-
 ## 🔧 Development
 
-### Frontend Development
+### Mobile Development
 ```bash
-cd frontend
-npm run dev          # Start Vite dev server
-npm run build        # Build for production
-npm run preview      # Preview production build
+npx expo start          # Start Expo development server
+npm run android         # Run on Android
+npm run ios            # Run on iOS
+npm run web            # Run on Web
 ```
 
 ### Backend Development
@@ -147,20 +129,11 @@ npm run dev          # Start with nodemon
 npm start           # Start production server
 ```
 
-### Code Structure
-- **Components**: Reusable UI components (MatchCard, RotationCard, MapPlaceholder)
-- **Pages**: Main application pages (Login, Onboarding, Preferences, Matches, GroupDashboard)
-- **Utils**: Helper functions and Firebase configuration
-- **Routes**: Express API endpoints with proper error handling
-
 ## 🚀 Deployment
 
-### Frontend (Vercel/Netlify)
-```bash
-cd frontend
-npm run build
-# Deploy the 'dist' folder
-```
+### Mobile App
+- **Expo Application Services (EAS)**: For app store deployment
+- **Expo Go**: For development and testing
 
 ### Backend (Heroku/Railway)
 ```bash
@@ -175,7 +148,6 @@ cd server
 - **Maps Integration**: Google Maps API for route optimization
 - **Push Notifications**: Real-time updates for schedule changes
 - **Payment Integration**: Split gas costs automatically
-- **Mobile App**: React Native version
 - **Advanced Matching**: Machine learning for better compatibility
 
 ## 🤝 Contributing
