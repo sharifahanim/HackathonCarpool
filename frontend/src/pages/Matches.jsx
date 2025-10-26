@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { getAuth } from 'firebase/auth'
 import MatchCard from '../components/MatchCard'
+import { generateMatches } from '../services/firestore'
 
 const Matches = () => {
   const [matches, setMatches] = useState([])
@@ -15,17 +17,19 @@ const Matches = () => {
   const fetchMatches = async () => {
     try {
       setLoading(true)
-      // In a real app, you'd get the user ID from auth context
-      const userId = 'user123' // This would come from Firebase auth
-      const response = await fetch(`/api/match/${userId}`)
+      setError('')
       
-      if (!response.ok) {
-        throw new Error('Failed to fetch matches')
+      const auth = getAuth()
+      const user = auth.currentUser
+      
+      if (!user) {
+        throw new Error('Please log in to find matches')
       }
       
-      const data = await response.json()
-      setMatches(data)
+      const matches = await generateMatches(user.uid)
+      setMatches(matches)
     } catch (error) {
+      console.error('Error fetching matches:', error)
       setError(error.message)
     } finally {
       setLoading(false)

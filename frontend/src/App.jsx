@@ -50,10 +50,11 @@ function App() {
             path="/onboarding" 
             element={user ? <Onboarding /> : <Navigate to="/login" />} 
           />
-          <Route 
-            path="/preferences" 
-            element={user ? <Preferences /> : <Navigate to="/login" />} 
+         <Route
+            path="/preferences"
+          element={user ? <Preferences currentUser={user} /> : <Navigate to="/login" />}
           />
+
           <Route 
             path="/matches" 
             element={user ? <Matches /> : <Navigate to="/login" />} 

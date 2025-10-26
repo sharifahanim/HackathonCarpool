@@ -1,187 +1,139 @@
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { doc, updateDoc } from 'firebase/firestore'
-import { db } from '../utils/firebase'
-import { auth } from '../utils/firebase'
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { db } from "../utils/firebase";
+import { doc, updateDoc } from "firebase/firestore";
 
-const Preferences = () => {
-  const [preferences, setPreferences] = useState({
-    maxDistance: 5,
-    maxGroupSize: 4,
-    preferredDays: [],
-    smokingAllowed: false,
-    musicPreference: 'any',
-    conversationLevel: 'moderate'
-  })
-  const [loading, setLoading] = useState(false)
-  const navigate = useNavigate()
+function Preferences({ currentUser }) {
+  const navigate = useNavigate();
+  const [maxDistance, setMaxDistance] = useState(5);
+  const [groupSize, setGroupSize] = useState(4);
+  const [days, setDays] = useState([]);
+  const [musicPreference, setMusicPreference] = useState("Any music");
+  const [conversationLevel, setConversationLevel] = useState("Moderate conversation");
+  const [smokingAllowed, setSmokingAllowed] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const days = [
-    { id: 'monday', label: 'Monday' },
-    { id: 'tuesday', label: 'Tuesday' },
-    { id: 'wednesday', label: 'Wednesday' },
-    { id: 'thursday', label: 'Thursday' },
-    { id: 'friday', label: 'Friday' }
-  ]
+  const handleDayToggle = (day) => {
+    setDays((prev) =>
+      prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
+    );
+  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-
-    try {
-      await updateDoc(doc(db, 'users', auth.currentUser.uid), {
-        preferences,
-        updatedAt: new Date()
-      })
-      navigate('/matches')
-    } catch (error) {
-      console.error('Error saving preferences:', error)
-    } finally {
-      setLoading(false)
+  const handleSubmit = async () => {
+    if (!currentUser) {
+      alert("Please log in first.");
+      return;
     }
-  }
 
-  const handleDayToggle = (dayId) => {
-    setPreferences(prev => ({
-      ...prev,
-      preferredDays: prev.preferredDays.includes(dayId)
-        ? prev.preferredDays.filter(d => d !== dayId)
-        : [...prev.preferredDays, dayId]
-    }))
-  }
+    setLoading(true);
+    try {
+      const userRef = doc(db, "users", currentUser.uid);
+      await updateDoc(userRef, {
+        preferences: {
+          maxDistance,
+          groupSize,
+          days,
+          musicPreference,
+          conversationLevel,
+          smokingAllowed,
+        },
+      });
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target
-    setPreferences(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }))
-  }
+      console.log("✅ Preferences saved!");
+      navigate("/matches"); // go to matches page next
+    } catch (error) {
+      console.error("❌ Error saving preferences:", error);
+      alert("Error saving preferences. Check console for details.");
+    }
+    setLoading(false);
+  };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-2xl mx-auto">
-        <div className="bg-white shadow rounded-lg p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">Set Your Preferences</h1>
-          
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Maximum distance from your route (miles)
-              </label>
-              <input
-                type="range"
-                name="maxDistance"
-                min="1"
-                max="20"
-                value={preferences.maxDistance}
-                onChange={handleChange}
-                className="w-full"
-              />
-              <div className="text-sm text-gray-600 mt-1">
-                {preferences.maxDistance} miles
-              </div>
-            </div>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+      <div className="bg-white shadow-md rounded-2xl p-8 w-[450px]">
+        <h1 className="text-2xl font-semibold mb-4 text-center">
+          Set Your Preferences
+        </h1>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Maximum group size
-              </label>
-              <select
-                name="maxGroupSize"
-                value={preferences.maxGroupSize}
-                onChange={handleChange}
-                className="w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500"
-              >
-                <option value={2}>2 people</option>
-                <option value={3}>3 people</option>
-                <option value={4}>4 people</option>
-                <option value={5}>5 people</option>
-              </select>
-            </div>
+        <label className="block mt-4 font-medium">Maximum distance (miles)</label>
+        <input
+          type="range"
+          min="1"
+          max="20"
+          value={maxDistance}
+          onChange={(e) => setMaxDistance(Number(e.target.value))}
+          className="w-full"
+        />
+        <p>{maxDistance} miles</p>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-3">
-                Preferred days for carpooling
-              </label>
-              <div className="grid grid-cols-2 gap-2">
-                {days.map(day => (
-                  <label key={day.id} className="flex items-center">
-                    <input
-                      type="checkbox"
-                      checked={preferences.preferredDays.includes(day.id)}
-                      onChange={() => handleDayToggle(day.id)}
-                      className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
-                    />
-                    <span className="ml-2 text-sm text-gray-900">{day.label}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
+        <label className="block mt-4 font-medium">Maximum group size</label>
+        <select
+          value={groupSize}
+          onChange={(e) => setGroupSize(Number(e.target.value))}
+          className="border rounded-md p-2 w-full"
+        >
+          {[2, 3, 4, 5].map((size) => (
+            <option key={size} value={size}>{size} people</option>
+          ))}
+        </select>
 
-            <div className="flex items-center">
+        <label className="block mt-4 font-medium">Preferred days</label>
+        <div className="grid grid-cols-2 gap-2">
+          {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].map((day) => (
+            <label key={day} className="flex items-center space-x-2">
               <input
                 type="checkbox"
-                name="smokingAllowed"
-                id="smokingAllowed"
-                className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
-                checked={preferences.smokingAllowed}
-                onChange={handleChange}
+                checked={days.includes(day)}
+                onChange={() => handleDayToggle(day)}
               />
-              <label htmlFor="smokingAllowed" className="ml-2 block text-sm text-gray-900">
-                Smoking allowed in car
-              </label>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Music preference
-              </label>
-              <select
-                name="musicPreference"
-                value={preferences.musicPreference}
-                onChange={handleChange}
-                className="w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500"
-              >
-                <option value="any">Any music</option>
-                <option value="quiet">Quiet/No music</option>
-                <option value="classical">Classical</option>
-                <option value="pop">Pop</option>
-                <option value="rock">Rock</option>
-                <option value="jazz">Jazz</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Conversation level
-              </label>
-              <select
-                name="conversationLevel"
-                value={preferences.conversationLevel}
-                onChange={handleChange}
-                className="w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500"
-              >
-                <option value="quiet">Quiet ride</option>
-                <option value="moderate">Moderate conversation</option>
-                <option value="chatty">Lots of conversation</option>
-              </select>
-            </div>
-
-            <div className="pt-6">
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50"
-              >
-                {loading ? 'Saving...' : 'Find Matches'}
-              </button>
-            </div>
-          </form>
+              <span>{day}</span>
+            </label>
+          ))}
         </div>
+
+        <label className="block mt-4 font-medium">Music preference</label>
+        <select
+          value={musicPreference}
+          onChange={(e) => setMusicPreference(e.target.value)}
+          className="border rounded-md p-2 w-full"
+        >
+          <option>Any music</option>
+          <option>Pop</option>
+          <option>Classical</option>
+          <option>Lo-fi</option>
+          <option>Silence</option>
+        </select>
+
+        <label className="block mt-4 font-medium">Conversation level</label>
+        <select
+          value={conversationLevel}
+          onChange={(e) => setConversationLevel(e.target.value)}
+          className="border rounded-md p-2 w-full"
+        >
+          <option>Quiet</option>
+          <option>Moderate conversation</option>
+          <option>Talkative</option>
+        </select>
+
+        <div className="flex items-center space-x-2 mt-4">
+          <input
+            type="checkbox"
+            checked={smokingAllowed}
+            onChange={() => setSmokingAllowed(!smokingAllowed)}
+          />
+          <span>Smoking allowed in car</span>
+        </div>
+
+        <button
+          onClick={handleSubmit}
+          disabled={loading}
+          className="bg-blue-600 hover:bg-blue-700 text-white mt-6 w-full py-2 rounded-md"
+        >
+          {loading ? "Saving..." : "Find Matches"}
+        </button>
       </div>
     </div>
-  )
+  );
 }
 
-export default Preferences
+export default Preferences;
